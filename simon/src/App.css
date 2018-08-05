@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+  background: black;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  
+}
+
+.btnContainer{
+  width: 500px;
+  height: 100px;
+  margin: 0 auto;
+  background-color: aqua;
+}
+
+.btnStart{
+  display: block;
+  margin-left: 200px;
+  margin-right: auto;
+  position: relative;
+  top: 40%;
+  border-radius: 50px;
+}
+
+.blue{
+  background-color: blue;
+  
+  width: 100px;
+  height: 100px;
+  margin-left: 100px;
+  margin-right: auto;
+  position: relative;
+  top: 30%;
+  opacity: 0.2;
+  
+}
+
+.green{
+  background-color: green;
+  
+  width: 100px;
+  height: 100px;
+  margin-left: 250px;
+  margin-right: auto;
+  position: relative;
+  top: -20%;
+  opacity: 0.2;
+}
+
+.red{
+  background-color: red;
+  
+  width: 100px;
+  height: 100px;
+  margin-left: 100px;
+  margin-right: auto;
+  position: relative;
+  top: 20%;
+  opacity: 0.2;
+}
+
+.yellow{
+  background-color:yellow;
+  
+  width: 100px;
+  height: 100px;
+  margin-left: 250px;
+  margin-right: auto;
+  position: relative;
+  top: -10%;
+  opacity: 0.2;
+}
+
+.blue.on{
+   opacity: 1;
+  transition: opacity 3s;
+}
+.green.on{
+  opacity: 1;
+  transition: opacity 3s;
+}
+
+.red.on{
+  opacity: 1;
+  transition: opacity 3s;
+}
+
+.yellow.on{
+  opacity: 1;
+  transition: opacity 3s;
+  
+}
+
+
+
