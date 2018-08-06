@@ -28,23 +28,34 @@ class Color extends Component {
     };
     
     this.render = this.render.bind(this);
-    this.setbackandforth = this.setbackandforth.bind(this);
+    this.activateLight = this.activateLight.bind(this);
+    this.deactivateLight = this.deactivateLight.bind(this);
     this.startSequence = this.startSequence.bind(this);
   }
   
-  setbackandforth(){
+  activateLight(){
     this.setState({turnedOn: ' on'},)
     
   }
+
+  deactivateLight(){
+    this.setState({turnedOn: ''},)
+    
+  }                
   
   startSequence(){
-      console.log('fick you')
+      let i =0
+      setInterval(function() {
+        i+=1
+        console.log(i)
+        
+      },1000);
     }
   
   render() {
     return (
       <Fragment>
-      <div onClick={()=>(this.setbackandforth())} 
+      <div onMouseUp={()=>(setTimeout(function(){this.deactivateLight()}.bind(this),1000))} onMouseDown={()=>(this.activateLight())} 
     className={this.props.name+this.state.turnedOn}>
       </div>
     
