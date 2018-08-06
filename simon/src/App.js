@@ -122,7 +122,7 @@ class Color extends Component {
   render() {
     return (
       <Fragment>
-      <div 
+      <div onMouseUp={()=>(setTimeout(function(){this.deactivateLight()}.bind(this),1000))} onMouseDown={()=>(this.activateLight())}
     className={this.props.name+this.state.turnedOn}>
       </div>
     
