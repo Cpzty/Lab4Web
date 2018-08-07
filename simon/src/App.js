@@ -4,61 +4,115 @@ import './App.css';
 
 let x =0;
 
+let count =0;
+
+let playersequence = [];
+
+let micontador =0;
+
+let timestop;
+
+let noinput = false;
+
+let botsequence = [];
+
+let colors = ['red','blue','green','yellow'];
+
+
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state ={
       colors: ['red','blue','green','yellow'],
       playersequence: [],
-      count:0
+      count:0,
+      turnedOn: '',
+      turnedOn1: '',
+      turnedOn2: '',
+      turnedOn3: '',
+      
 
     }
     
     this.render = this.render.bind(this);
     this.activateradomLight = this.activaterandomLight.bind(this);
     this.deactivateLight = this.deactivateLight.bind(this);
+    this.myInterval = this.myInterval.bind(this);
   }
   
-  activaterandomLight(){
+  activaterandomLight(count){
     //this.setState({turnedOn: ' on'},)
+    setTimeout(function(){this.deactivateLight},2000*count)
+    timestop =setTimeout(function(){this.myInterval()}.bind(this),1000);
+    //clearInterval(timestop)
+    
+     
+    
+    
+  }
+  
+  myInterval(){
+    
     let rng = Math.floor(Math.random()*this.state.colors.length)
-    this.state.colors[rng] = this.state.colors[rng]+ ' on'
-    console.log(rng)
+    botsequence.push(this.state.colors[rng]);
+    if(this.state.colors[rng]==='red'){
+    setTimeout(function(){this.deactivateLight()}.bind(this),1200)
+    setTimeout(function(){this.setState({turnedOn: ''})}.bind(this),1200)
+    this.setState({turnedOn: ' on'})
+    console.log(colors[rng])
+    console.log('realmente este es bot sequence: '+colors[rng])
     this.setState({playersequence: this.state.colors[rng]},)
     this.forceUpdate()
-    this.setState({count: 1})
+    }
+    
+    if(this.state.colors[rng]==='blue'){
     setTimeout(function(){this.deactivateLight()}.bind(this),1200)
+    setTimeout(function(){this.setState({turnedOn1: ''})}.bind(this),1200)
+    this.setState({turnedOn1: ' on'})
+    console.log(colors[rng])
+    console.log('realmente este es bot sequence: '+colors[rng])
+    this.setState({playersequence: this.state.colors[rng]},)
+    this.forceUpdate()
+    }
     
-    setTimeout(function(){this.activateradomLight()}.bind(this),1200)
+    if(this.state.colors[rng]==='green'){
+    setTimeout(function(){this.deactivateLight()}.bind(this),1200)
+    setTimeout(function(){this.setState({turnedOn2: ''})}.bind(this),1200)
+    this.setState({turnedOn2: ' on'})
+    console.log(colors[rng])
+    console.log('realmente este es bot sequence: '+colors[rng])
+    this.setState({playersequence: this.state.colors[rng]},)
+    this.forceUpdate()
+    }
+    
+    if(this.state.colors[rng]==='yellow'){
+    setTimeout(function(){this.deactivateLight()}.bind(this),1200)
+    setTimeout(function(){this.setState({turnedOn3: ''})}.bind(this),1200)
+    this.setState({turnedOn3: ' on'})
+    console.log(colors[rng])
+    console.log('realmente este es bot sequence: '+colors[rng])
+    this.setState({playersequence: this.state.colors[rng]},)
+    this.forceUpdate()
+    }
+    
+    micontador+=1;
     
     
-    x+=1
   }
   
+  
+  
 
-  deactivateLight(){
+  deactivateLight(){      
+        colors[0] = 'red'
+        colors[1] = 'blue'
+        colors[2] = 'green'
+        colors[3] = 'yellow'
+        
+      
+      
     
-    for(let i=0; i<this.state.colors.length; i+=1){
-      if(i===0){
-        this.state.colors[0] = 'red'
-        this.forceUpdate()
-      } 
-      else if(i===1){
-        this.state.colors[1] = 'blue'
-        this.forceUpdate()
-      }
-      
-      else if(i===2){
-        this.state.colors[2] = 'green'
-        this.forceUpdate()
-      }
-      
-      else if(i===3){
-        this.state.colors[3] = 'yellow'
-        this.forceUpdate()
-      }
-      
-    }
     
     
     
@@ -69,14 +123,14 @@ class App extends Component {
     return (
       <Fragment>
       <div className="App">
-        <Color onMouseUp={()=>(this.deactivateredLight())}onMouseDown={()=>(this.activaterandomLight())} name={this.state.colors[0]}/>
-        <Color name={this.state.colors[1]}/>
-        <Color name={this.state.colors[2]}/>
-        <Color name={this.state.colors[3]}/>
+        <Color onMouseUp={()=>(this.deactivateLight())}onMouseDown={()=>(this.activaterandomLight())} name={colors[0]+this.state.turnedOn}/>
+        <Color name={colors[1]+this.state.turnedOn1}/>
+        <Color name={colors[2]+this.state.turnedOn2}/>
+        <Color name={colors[3]+this.state.turnedOn3}/>
       </div>
       
       <div>
-      <button  onMouseDown={()=>(setTimeout(function(){this.activaterandomLight()}.bind(this),1000))}>Hallo</button>
+      <button onMouseUp={()=>(setTimeout(function(){this.deactivateLight()}.bind(this),1000))}  onMouseDown={()=>(setTimeout(function(){this.activaterandomLight(count)}.bind(this),1000))}>Start/Next</button>
       </div>
       </Fragment>
     );
@@ -90,23 +144,151 @@ class Color extends Component {
       turnedOn: '',
       botsequence: [],
       playersequence: [],
+      
     };
     
     this.render = this.render.bind(this);
     this.activateLight = this.activateLight.bind(this);
     this.deactivateLight = this.deactivateLight.bind(this);
     this.startSequence = this.startSequence.bind(this);
+    this.deactivatered = this.deactivatered.bind(this);
+  }
+  
+  deactivatered(){
+    this.setState({turnedOn:''});
+    
   }
   
   activateLight(){
     this.setState({turnedOn: ' on'},)
     this.state.playersequence.push(this.props.name)
+    if(this.props.name === "red"){
+      console.log()
+      playersequence.push('red');
+      setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+      console.log("el usuario ingreso "+playersequence[playersequence.length-1])
+      if(playersequence[count]===botsequence[count]&&count!==botsequence.length-1){
+        console.log('continuar')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count=count+1;
+        
+        
+      }else if(playersequence[count]!==botsequence[count]){
+        console.log('perdio')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =0;
+        playersequence=[];
+        botsequence=[];
+        
+        
+      }
+      else{
+        console.log('presionar el boton')
+        count=0;
+        playersequence =[];
+        console.log('se vacio la secuencia'+playersequence)
+      }
+      
+    }
+    
+    else if(this.props.name === "blue"){
+      console.log()
+      playersequence.push('blue');
+      setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+      console.log("el usuario ingreso "+playersequence[playersequence.length-1])
+      if(playersequence[count]===botsequence[count]&&count!==botsequence.length-1){
+        console.log('continuar')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =count+1;
+      }else if(playersequence[count]!==botsequence[count]){
+        console.log('perdio')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =0;
+        playersequence=[];
+        botsequence=[];
+        
+      }
+      else{
+        console.log('presionar boton')
+        count=0;
+        playersequence =[];
+        console.log('se vacio la secuencia'+playersequence)
+      }
+      
+    }
+    
+    else if(this.props.name === "green"){
+      console.log()
+      playersequence.push('green');
+      setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+      console.log("el usuario ingreso "+playersequence[playersequence.length-1])
+      if(playersequence[count]===botsequence[count]&&count!==botsequence.length-1){
+        console.log('continuar')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =count+1;
+      }else if(playersequence[count]!==botsequence[count]){
+        console.log('perdio')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =0;
+        playersequence=[];
+        botsequence=[];
+        
+       
+      }
+      else{
+        console.log('presionar boton')
+        count=0;
+        playersequence =[];
+        console.log('se vacio la secuencia'+playersequence)
+      }
+      
+    }
+    
+    else if(this.props.name === "yellow"){
+      console.log()
+      playersequence.push('yellow');
+      setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+      console.log("el usuario ingreso "+playersequence[playersequence.length-1])
+      if(playersequence[count]===botsequence[count]&&count!==botsequence.length-1){
+        console.log('continuar')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =count+1;
+      }if(playersequence[count]!==botsequence[count]){
+        console.log('perdio')
+        console.log(botsequence[botsequence.length-1])
+        setTimeout(function(){this.deactivateLight()}.bind(this),2000)
+        count =0;
+        playersequence=[];
+        botsequence=[];
+        
+      }
+      else{
+        console.log('presionar boton')
+        count=0;
+        playersequence =[];
+        console.log('se vacio la secuencia'+playersequence)
+      }
+      
+    }
+    
    // console.log(this.state.playersequence[0])
     
   }
 
   deactivateLight(){
     this.setState({turnedOn: ''},)
+     colors[0] = 'red'
+     colors[1] = 'blue'
+     colors[2] = 'green'
+     colors[3] = 'yellow'
+    
     
   }                
   
@@ -122,7 +304,7 @@ class Color extends Component {
   render() {
     return (
       <Fragment>
-      <div onMouseUp={()=>(setTimeout(function(){this.deactivateLight()}.bind(this),1000))} onMouseDown={()=>(this.activateLight())}
+      <div /*onMouseUp={()=>(setTimeout(function(){this.deactivateLight()}.bind(this),1000))}*/ onMouseDown={()=>(this.activateLight())}
     className={this.props.name+this.state.turnedOn}>
       </div>
     
